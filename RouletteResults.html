@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input</title>
+    <style>
+        button {
+                position:relative;
+                top:40%;
+                }
+        table,th,td{
+                font-size: 1.5vw;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        table.center {
+                margin-left: auto;
+                margin-right: auto;
+                }
+
+        .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        }
+    </style>
+
+    
+    <script type = "text/javascript">
+
+        function PlayAgain()
+        {
+            document.getElementById("div2").style.display="block";
+        }
+
+        function enablelist(){
+                 if (document.getElementById("NewGameOption5").checked){
+                    document.getElementById("Newnumbers").disabled=false
+                }
+                else
+                    document.getElementById("Newnumbers").disabled=true 
+            }
+
+        function userinput(){
+            if(document.getElementById("NewGameOption1").checked
+                || document.getElementById("NewGameOption2").checked
+                || document.getElementById("NewGameOption3").checked
+                || document.getElementById("NewGameOption4").checked){
+                    window.location = "RouletteGame.html";
+                }
+
+            else {
+                    if (document.getElementById("NewGameOption5").checked){
+                        var Choice=document.getElementById("Newnumbers");
+                        if (Choice.selectedIndex <= 0)
+                            {alert("Please select a valid number!")}
+                        else
+                            {
+                               var ChoiceValue = Choice.value;
+                               window.location = "RouletteGame.html"; 
+                            }
+                    }
+                    else 
+                        alert("Please select a betting option!")
+                }
+        
+        sessionStorage.bbalance=document.getElementById("Newbbalance").value;
+        sessionStorage.bet=document.getElementById("Newbet").value;
+
+        if (document.getElementById("NewGameOption1").checked){
+            sessionStorage.SelectFlag="GameType1";
+            sessionStorage.Selection=document.getElementById("NewGameOption1").value
+        }
+
+        if (document.getElementById("NewGameOption2").checked){
+            sessionStorage.SelectFlag="GameType1";
+            sessionStorage.Selection=document.getElementById("NewGameOption2").value
+        }
+
+        if (document.getElementById("NewGameOption3").checked){
+            sessionStorage.SelectFlag="GameType2";
+            sessionStorage.Selection=document.getElementById("NewGameOption3").value
+        }
+
+        if (document.getElementById("NewGameOption4").checked){
+            sessionStorage.SelectFlag="GameType2";
+            sessionStorage.Selection=document.getElementById("NewGameOption4").value
+        }
+
+        if (document.getElementById("NewGameOption5").checked){
+            sessionStorage.SelectFlag="GameType3";
+            sessionStorage.Selection=document.getElementById("NewGameOption5").value
+            sessionStorage.SelectedNumber=ChoiceValue
+        }
+        }
+
+        function userfinish(){
+            window.location = "RouletteFinish.html"
+        }
+    </script>
+</head>
+<body style="background-color:cadetblue; zoom: 100%;">   
+    <div class="container" id="div1">
+        <h1 style="font-size:1.5vw;text-align: center; padding-top: 0.5vw;">Player Name: <span id="name"></span></h1>
+        <script>
+            document.getElementById("name").innerHTML= sessionStorage.fname+" "+sessionStorage.lname
+        </script>
+        
+        <h2 style="font-size:1.5vw;text-align: center; padding-top: 0.1vw;color:crimson;"><span id="result"></span></h2>
+        <script>
+            if(sessionStorage.win === "true")
+                document.getElementById("result").innerHTML = "Congratulations! You Won!"
+            else
+                document.getElementById("result").innerHTML = "Sorry! Better Luck Next Time!"
+
+        </script>
+
+        <h3 style="font-size:1.5vw;text-align: center; padding-top: 0.1vw;color:indianred;"><span id="winamount"></span></h3>
+        <script>
+            if (sessionStorage.win === "true")
+                document.getElementById("winamount").innerHTML = "You have Won: ₹" + sessionStorage.ResultAmount
+            else
+                document.getElementById("winamount").innerHTML = "You have Lost: ₹" + sessionStorage.ResultAmount
+        </script>
+
+
+        <h4 style="font-size:1.5vw;text-align: center; padding-top: 0.1vw;color:darkred;">Your Bank Balance is: ₹<span id="Newbbalance"></span></h4>
+        <script>
+                document.getElementById("Newbbalance").innerHTML = sessionStorage.bbalance
+                document.getElementById("Newbbalance").value = sessionStorage.bbalance
+        </script>
+
+        <button type="button" value="PlayAgain" style="font-size: 1vw;left: 40%;" onclick="PlayAgain();">Play Again</button><span>
+        <button type="button" value="Finish" style="font-size: 1vw;left: 50%;" onclick="userfinish();">Finish</button></span><br><br>
+
+    </div><br><br>
+
+    <div class="container" id="div2" style="display: none;">
+        <form action="/action_page.php" method="POST">
+            <br><br>
+            <label id="NewGameOptionLabel" for="NewGameOption" style="font-size: 2vw;padding-left: 38vw;">Bet Options*:</label>
+            <input type="radio" id="NewGameOption1" name="NewGameOption" value="BLACK" style="font-size: 50vw;" onclick="enablelist();">BLACK
+            <input type="radio" id="NewGameOption2" name="NewGameOption" value="RED" style="font-size: 50vw;" onclick="enablelist();">RED
+            <input type="radio" id="NewGameOption3" name="NewGameOption" value="HIGH" style="font-size: 50vw;" onclick="enablelist();">HIGH
+            <input type="radio" id="NewGameOption4" name="NewGameOption" value="LOW" style="font-size: 50vw;" onclick="enablelist();">LOW
+            <input type="radio" id="NewGameOption5" name="NewGameOption" value="NUMBER" style="font-size: 2vw;" onclick="enablelist();">SPECIFIC NUMBER
+            <span><select id="Newnumbers" name="Newnumbers" disabled>
+                <option value=""><pre> </pre></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+            </select>
+            </span>
+            <label id="NewBetAmountLabel" for="Newbet" style="font-size: 2vw;padding-left: 38vw;">Bet Amount*: ₹</label>
+            <input type="text" id="Newbet" name="Newbet" required/><br><br>
+            <button type="button" id="Submit" value="Submit" style="font-size: 1vw;left: 50%;" onclick="userinput();">Submit</button></span><br><br>
+            <table id="Newbettable" style="width: 25%;text-align: center;" class="center">
+                <tr style="background-color: coral;font-weight: bolder;">
+                <td>Bet Type</td>
+                <td>Bet Ratio</td>   
+                </tr>
+                <tr>
+                <td>BLACK/RED</td>
+                <td> 1 to 1</td>
+                </tr>
+                <tr>
+                <td>LOW/HIGH</td>
+                <td>1 to 1</td>
+                </tr>
+                <tr>
+                <td>SPECIFIC NUMBER</td>
+                <td>35 to 1</td>
+                </tr>
+            </table><br><br>
+        </form>
+        </div><br><br>
+        <footer style="text-align: center;">
+            <p>N.B. No Real Money is involved. Made for Fun!</p>
+        </footer>
+</body>
+</html>

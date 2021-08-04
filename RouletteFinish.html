@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input</title>
+    <style>
+        button {
+                position:relative;
+                top:40%;
+                }
+        table,th,td{
+                font-size: 1.5vw;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        table.center {
+                margin-left: auto;
+                margin-right: auto;
+                }
+
+        .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        }
+    </style>
+    
+    <script type = "text/javascript">
+
+        function Restart(){
+            window.location = "index.html";
+        }
+
+    </script>    
+</head>
+<body style="background-color:cadetblue; zoom: 100%;">   
+    <div class="container">
+        <h1 style="font-size:3vw;text-align: center; padding-top: 0.5vw;"> End of the Game!!!</h1>
+            
+            
+        <h2 style="font-size:1.5vw;text-align: center; padding-top: 0.1vw;color:crimson;">Player Name: <span id="name"></span></h2>
+        <script>
+            document.getElementById("name").innerHTML= sessionStorage.fname+" "+sessionStorage.lname
+        </script>
+
+        <h3 style="font-size:1.5vw;text-align: center; padding-top: 0.1vw;color:indianred;"><span id="finalwin"></span></h3>
+        <script>
+            var finalwinamount = 0;
+            if (parseFloat(sessionStorage.bbalance) > 0 )
+                {
+                    finalwinamount = parseFloat(sessionStorage.bbalance) - parseFloat(sessionStorage.initialbalance);
+                    document.getElementById("finalwin").innerHTML = "Your Total Gain: ₹" + finalwinamount
+                }
+            else
+                {
+                    finalwinamount = -(parseFloat(sessionStorage.bbalance) - parseFloat(sessionStorage.initialbalance));
+                    document.getElementById("finalwin").innerHTML = "Your Total Loss: ₹" + finalwinamount
+                }
+        </script>
+        
+        <h4 style="font-size:1.5vw;text-align: center; padding-top: 0.1vw;color:darkred;"><span id="bbalance"></span></h4>
+        <script>
+            if(sessionStorage.bbalance >= 0)
+                document.getElementById("bbalance").innerHTML = "Your Final Bank Balance is: ₹" + sessionStorage.bbalance
+            else
+                {
+                var negativebalance= -parseFloat(sessionStorage.bbalance);
+                document.getElementById("bbalance").innerHTML = "Please clear your dues: ₹" + negativebalance
+                }
+        </script>
+
+        <button type="button" value="Restart" style="font-size: 1vw;left: 47%;" onclick="Restart()">Restart</button><br><br>
+    </div><br><br>
+    <footer style="text-align: center;">
+        <p>N.B. No Real Money is involved. Made for Fun!</p>
+    </footer>
+</body>
+</html>

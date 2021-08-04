@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROULETTEGAME</title>
+    <style>
+        body{background-color: teal}
+        h1{color: bisque;}
+        pre{color: bisque;font-size: 1vw;}
+        button {
+                padding: 0.5vw 1vw;
+                position: relative;
+                left: 47%;
+                cursor: pointer;
+                }
+    </style>
+    
+    <script>
+
+        console.log(sessionStorage.SelectFlag)
+
+        function SpinWheel(){
+
+            sessionStorage.win = false;
+
+            document.getElementById("targetframe").contentWindow.spin();
+            
+            if (sessionStorage.SelectFlag === "GameType1")
+                {
+                    sessionStorage.ResultAmount = parseFloat(sessionStorage.bet)
+
+                    if (sessionStorage.Selection === "RED"){
+                        if (sessionStorage.picked % 2 === 0 && sessionStorage.picked > 0){
+                            sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) + parseFloat(sessionStorage.bet)
+                            sessionStorage.win = true;
+                        }
+                        else 
+                        sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) - parseFloat(sessionStorage.bet)
+                    }
+
+                    if (sessionStorage.Selection === "BLACK"){
+                    
+                        if (sessionStorage.picked % 2 !== 0 && sessionStorage.picked > 0){
+                            sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) + parseFloat(sessionStorage.bet)
+                            sessionStorage.win = true;
+                        }
+                        else
+                        sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) - parseFloat(sessionStorage.bet)
+                    }
+                }
+
+                if (sessionStorage.SelectFlag === "GameType2")
+                {
+                    sessionStorage.ResultAmount = parseFloat(sessionStorage.bet)
+                    
+                    if (sessionStorage.Selection === "LOW"){
+                        if (sessionStorage.picked <19 && sessionStorage.picked > 0){
+                            sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) + parseFloat(sessionStorage.bet)
+                            sessionStorage.win = true
+                        }
+                        else
+                        sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) - parseFloat(sessionStorage.bet)
+                    }
+
+                    if (sessionStorage.Selection === "HIGH"){
+                        if (sessionStorage.picked >= 19 && sessionStorage.picked > 0){
+                            sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) + parseFloat(sessionStorage.bet)
+                            sessionStorage.win = true
+                        }
+                        else
+                        sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) - parseFloat(sessionStorage.bet)
+                    }
+                }
+
+                
+                if (sessionStorage.SelectFlag === "GameType3")
+                {
+                    sessionStorage.ResultAmount = 35*parseFloat(sessionStorage.bet)
+                    
+                    if (sessionStorage.SelectedNumber === sessionStorage.picked){
+                            sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) + 35*parseFloat(sessionStorage.bet)
+                            sessionStorage.win = true
+                    }
+                    else
+                        sessionStorage.bbalance=parseFloat(sessionStorage.bbalance) - 35*parseFloat(sessionStorage.bet)
+                }
+                
+                if(sessionStorage.bbalance > 0)
+                    setTimeout(() => {  window.location = "RouletteResults.html";; }, 7000);
+                else
+                setTimeout(() => {  window.location = "RouletteFinish.html";; }, 7000);
+            }        
+    </script>
+</head>
+<body>
+      <h1 style="font-size:1.5vw;text-align: center; padding-top: 0.1vw;">Welcome <span id="name"></span></h1>
+        <script>
+            document.getElementById("name").innerHTML= sessionStorage.fname+" "+sessionStorage.lname
+        </script>
+      <iframe src="Roulettewheel.html" id="targetframe" height="500" width="500" 
+                style="border:none;padding-top: 0.1vw;padding-left: 32vw;" title="Roulettewheel"></iframe><br>
+      <button type="button" id="Spin" value="Spin" style="font-size: 1vw;" onclick="SpinWheel();">Spin</button>
+       <pre> Your Bank Balance : ₹ <span id="bbalance"></span>
+          Your Bet : ₹ <span id="bet"></span>
+     Your Selection: <span id="Selection"></span></pre>
+       <script>
+           document.getElementById("bbalance").innerHTML= sessionStorage.bbalance       
+           document.getElementById("bet").innerHTML= sessionStorage.bet
+           if (sessionStorage.Selection !== "NUMBER")
+            document.getElementById("Selection").innerHTML= sessionStorage.Selection
+           else
+           document.getElementById("Selection").innerHTML= sessionStorage.SelectedNumber
+       </script>
+</body>
+</html>

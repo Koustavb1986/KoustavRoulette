@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input</title>
+    <style>
+        button {
+                position:relative;
+                left: 50%;
+                top:40%;
+                }
+        table,th,td{
+                font-size: 1.5vw;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        table.center {
+                margin-left: auto;
+                margin-right: auto;
+                }
+
+        .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        }
+    </style>
+
+    
+    <script type = "text/javascript">
+
+        function enablelist(){
+                 if (document.getElementById("GameOption5").checked){
+                    document.getElementById("numbers").disabled=false
+                }
+                else
+                    document.getElementById("numbers").disabled=true 
+            }
+
+        function userinput(){
+            if(document.getElementById("GameOption1").checked
+                || document.getElementById("GameOption2").checked
+                || document.getElementById("GameOption3").checked
+                || document.getElementById("GameOption4").checked){
+                    window.location = "RouletteGame.html";
+                }
+
+            else {
+                    if (document.getElementById("GameOption5").checked){
+                        var Choice=document.getElementById("numbers");
+                        if (Choice.selectedIndex <= 0)
+                            {alert("Please select a valid number!")}
+                        else
+                            {
+                               var ChoiceValue = Choice.value;
+                               window.location = "RouletteGame.html"; 
+                            }
+                    }
+                    else 
+                        alert("Please select a betting option!")
+                }
+        
+        sessionStorage.fname=document.getElementById("fname").value;
+        sessionStorage.lname=document.getElementById("lname").value;
+        sessionStorage.initialbalance = document.getElementById("bbalance").value;
+        sessionStorage.bbalance=document.getElementById("bbalance").value;
+        sessionStorage.bet=document.getElementById("bet").value;
+
+        if (document.getElementById("GameOption1").checked){
+            sessionStorage.SelectFlag="GameType1";
+            sessionStorage.Selection=document.getElementById("GameOption1").value
+        }
+
+        if (document.getElementById("GameOption2").checked){
+            sessionStorage.SelectFlag="GameType1";
+            sessionStorage.Selection=document.getElementById("GameOption2").value
+        }
+
+        if (document.getElementById("GameOption3").checked){
+            sessionStorage.SelectFlag="GameType2";
+            sessionStorage.Selection=document.getElementById("GameOption3").value
+        }
+
+        if (document.getElementById("GameOption4").checked){
+            sessionStorage.SelectFlag="GameType2";
+            sessionStorage.Selection=document.getElementById("GameOption4").value
+        }
+
+        if (document.getElementById("GameOption5").checked){
+            sessionStorage.SelectFlag="GameType3";
+            sessionStorage.Selection=document.getElementById("GameOption5").value
+            sessionStorage.SelectedNumber=ChoiceValue
+        }
+        }
+
+    </script>
+</head>
+<body style="background-color:cadetblue; zoom: 100%;">   
+    <div class="container">
+        <h1 style="font-size:3vw;text-align: center; padding-top: 0.1vw;">Please enter your details</h1>
+        <form action="/action_page.php" method="POST">
+            <label for="fname" style="font-size: 2vw;padding-left: 38vw;">First name*:</label>
+            <input type="text" id="fname" name="fname" required /><br><br>
+            <label for="lname" style="font-size: 2vw;padding-left: 38vw;">Last name*:</label>
+            <input type="text" id="lname" name="lname" required/><br><br>
+            <label for="bbalance" style="font-size: 2vw;padding-left: 38vw;">Balance*: ₹</label>
+            <input type="text" id="bbalance" name="bbalance" required/><br><br>
+            <label for="GameOption" style="font-size: 2vw;padding-left: 38vw;">Bet Options*:</label>
+            <input type="radio" id="GameOption1" name="GameOption" value="BLACK" style="font-size: 50vw;" onclick="enablelist();">BLACK
+            <input type="radio" id="GameOption2" name="GameOption" value="RED" style="font-size: 50vw;" onclick="enablelist();">RED
+            <input type="radio" id="GameOption3" name="GameOption" value="HIGH" style="font-size: 50vw;" onclick="enablelist();">HIGH
+            <input type="radio" id="GameOption4" name="GameOption" value="LOW" style="font-size: 50vw;" onclick="enablelist();">LOW
+            <input type="radio" id="GameOption5" name="GameOption" value="NUMBER" style="font-size: 2vw;" onclick="enablelist();">SPECIFIC NUMBER
+            <span><select id="numbers" name="numbers" disabled>
+                <option value=""><pre> </pre></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+            </select>
+            </span>
+            <label for="bet" style="font-size: 2vw;padding-left: 38vw;">Bet Amount*: ₹</label>
+            <input type="text" id="bet" name="bet" required/><br><br>
+            <button type="button" value="Submit" formaction="RouletteGame.html" style="font-size: 1vw;" onclick="userinput();">Submit</button><br><br><br>
+            <table style="width: 25%;" class="center">
+                <tr>
+                <td>Low</td>
+                <td style="background-color: black; color: white">1</td>
+                <td style="background-color: red; color: white">2</td>
+                <td style="background-color: black; color: white">3</td>
+                <td style="background-color: red; color: white">4</td>
+                <td style="background-color: black; color: white">5</td>
+                <td style="background-color: red; color: white">6</td>
+                <td style="background-color: black; color: white">7</td>
+                <td style="background-color: red; color: white">8</td>
+                <td style="background-color: black; color: white">9</td>
+                <td style="background-color: red; color: white">10</td>
+                <td style="background-color: black; color: white">11</td>
+                <td style="background-color: red; color: white">12</td>
+                <td style="background-color: black; color: white">13</td>
+                <td style="background-color: red; color: white">14</td>
+                <td style="background-color: black; color: white">15</td>
+                <td style="background-color: red; color: white">16</td>
+                <td style="background-color: black; color: white">17</td>
+                <td style="background-color: red; color: white">18</td>
+                </tr>
+                <tr>
+                <td>High</td>
+                <td style="background-color: black; color: white">19</td>
+                <td style="background-color: red; color: white">20</td>
+                <td style="background-color: black; color: white">21</td>
+                <td style="background-color: red; color: white">22</td>
+                <td style="background-color: black; color: white">23</td>
+                <td style="background-color: red; color: white">24</td>
+                <td style="background-color: black; color: white">25</td>
+                <td style="background-color: red; color: white">26</td>
+                <td style="background-color: black; color: white">27</td>
+                <td style="background-color: red; color: white">28</td>
+                <td style="background-color: black; color: white">29</td>
+                <td style="background-color: red; color: white">30</td>
+                <td style="background-color: black; color: white">31</td>
+                <td style="background-color: red; color: white">32</td>
+                <td style="background-color: black; color: white">33</td>
+                <td style="background-color: red; color: white">34</td>
+                <td style="background-color: black; color: white">35</td>
+                <td style="background-color: red; color: white">36</td>
+                </tr>
+            </table><br><br>
+        </div><br><br>
+        <table style="width: 25%;text-align: center;" class="center">
+            <tr style="background-color: coral;font-weight: bolder;">
+            <td>Bet Type</td>
+            <td>Bet Ratio</td>   
+            </tr>
+            <tr>
+            <td>BLACK/RED</td>
+            <td> 1 to 1</td>
+            </tr>
+            <tr>
+            <td>LOW/HIGH</td>
+            <td>1 to 1</td>
+            </tr>
+            <tr>
+            <td>SPECIFIC NUMBER</td>
+            <td>35 to 1</td>
+            </tr>
+    </table>
+</form>
+<footer style="text-align: center;">
+    <p>N.B. No Real Money is involved. Made for Fun!</p>
+</footer>
+</body>
+</html>
